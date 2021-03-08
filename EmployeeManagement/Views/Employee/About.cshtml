@@ -1,0 +1,20 @@
+﻿@model EmployeeManagement.ViewModels.EmployeeAboutViewModel
+
+
+<h3>@Model.PageTitle</h3>
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Department</th>
+            <th>Email</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Employee.Name</td>
+            <td>@Model.Employee.Department</td>
+            <td>@Model.Employee.Email</td>
+        </tr>
+    </tbody>
+</table>

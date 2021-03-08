@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EmployeeManagement.Models.Employee>
+
+<div class="row">
+    @foreach (var emp in Model)
+    {
+        
+            <div class="col-sm-4 col-md-4">
+                <div class="card m-3">
+                    <div class="card-header">
+                        <h3>@emp.Name</h3>
+                    </div>
+                    @*using image tag helper ---> asp-append-version*@
+                    <img class="card-img-top" src="~/images/download.png" asp-append-version="true"/>
+                    <div class="card-footer text-center">
+                        <a asp-controller="Employee" asp-action="Details" asp-route-id="@emp.Id"
+                           class="btn btn-primary m-1">View</a>
+                        <a href="#" class="btn btn-primary m-1">Edit</a>
+                        <a href="#" class="btn btn-danger m-1">Delete</a>
+                    </div>
+                </div>
+            </div>
+        
+    }
+</div>
+ 
