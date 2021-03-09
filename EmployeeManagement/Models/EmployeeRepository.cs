@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 
 namespace EmployeeManagement.Models
 {
+    //This class provides the implementataions for IEmployeeRepository
     public class EmployeeRepository : IEmployeeRepository
     {
         private List<Employee> _empList;
@@ -37,6 +38,30 @@ namespace EmployeeManagement.Models
         {
             emp.Id = _empList.Max(e => e.Id) + 1;
             _empList.Add(emp);
+            return emp;
+        }
+
+        public Employee UpdateEmployee(Employee emp)
+        { 
+            Employee employee = _empList.Find(e => e.Id == emp.Id);
+
+            if(employee != null)
+            {
+                employee.Name = emp.Name;
+                employee.Department = emp.Department;
+                employee.Email = emp.Email;
+            }   
+            return employee;
+        } 
+
+        public Employee DeleteEmployee(int id)
+        {
+            Employee emp = _empList.FirstOrDefault(emp => emp.Id == id);
+            if(emp != null)
+            {
+                _empList.Remove(emp);
+               
+            }
             return emp;
         }
     }

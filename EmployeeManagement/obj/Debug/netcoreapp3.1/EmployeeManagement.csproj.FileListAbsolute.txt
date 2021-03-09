@@ -326,9 +326,6 @@ C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\bin\Debug\netcore
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.CSharp.resources.dll
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.AssemblyInfoInputs.cache
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.AssemblyInfo.cs
-C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csproj.CoreCompileInputs.cache
-C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cs
-C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cache
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.RazorAssemblyInfo.cache
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.RazorAssemblyInfo.cs
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.TagHelpers.input.cache

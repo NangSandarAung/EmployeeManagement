@@ -49,8 +49,12 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public IActionResult Create(Employee emp)
         {
-            Employee newEmp = _employeeRepo.AddNewEmployee(emp);
-            return RedirectToAction("Details", new { id = newEmp.Id});
+            if (ModelState.IsValid)
+            {
+                Employee newEmp = _employeeRepo.AddNewEmployee(emp);
+                return RedirectToAction("Details", new { id = newEmp.Id });
+            }
+            return View(emp);
         }
     }
 } 
