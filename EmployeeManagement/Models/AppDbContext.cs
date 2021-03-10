@@ -17,6 +17,15 @@ namespace EmployeeManagement.Models
 
         }
 
+        //to seed data into database
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //call the ModelBuilder extension class's method to seed data
+            modelBuilder.Seed();
+           
+        }
+
+
         //need to write DbSet for each entity in the model
         //we use this to query and save instances of model's class
         public DbSet<Employee> Employees { get; set; } 
