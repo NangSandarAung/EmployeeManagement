@@ -54,17 +54,7 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public IActionResult Create(EmployeeCreateViewModel model)
         {
-            string uniqueFileName = null;
-            if(model.Photo != null)
-            {
-                //WebRootPath --> provide the physical path of wwwroot
-                //as we need to get to the images of wwwroot, we use combine() to combine the full path
-                string uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
-                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
-                string filePath = Path.Combine(uploadFolderPath, uniqueFileName);
-                //we copy the photo images from view to our images folder using filePath to locate the location and upload to server using FileMode.Create
-                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
-            }
+            string uniqueFileName = ProcessUploadPhoto(model);
             if (ModelState.IsValid)
             {
                 //assign data from viewModel to Employee model
@@ -81,6 +71,27 @@ namespace EmployeeManagement.Controllers
                 return RedirectToAction("Details", new { id = newEmp.Id });
             }
             return View(model);
+        }
+
+        private string ProcessUploadPhoto(EmployeeCreateViewModel model)
+        {
+            string uniqueFileName = null;
+            if (model.Photo != null)
+            {
+                //WebRootPath --> provide the physical path of wwwroot
+                //as we need to get to the images of wwwroot, we use combine() to combine the full path
+                string uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadFolderPath, uniqueFileName);
+                //we copy the photo images from view to our images folder using filePath to locate the location and upload to server using FileMode.Create
+                //after this block of using() code has been executed sucessfully, the filestream will be disposed 
+                using (var fileStream = new FileStream(filePath, FileMode.Create))
+                {
+                    model.Photo.CopyTo(fileStream);
+                }
+            }
+
+            return uniqueFileName;
         }
 
         public IActionResult Delete(int id)
@@ -107,15 +118,25 @@ namespace EmployeeManagement.Controllers
         [HttpPost]
         public IActionResult Edit(EmployeeEditViewModel empModel)
         {
-            string replacePhotoPath = null;
-            Employee empToUpdate = new Employee
+            //find the employee by id first
+            Employee employee = _employeeRepo.GetEmployee(empModel.Id);
+            employee.Name = empModel.Name;
+            employee.Email = empModel.Email;
+            employee.Department = empModel.Department;
+            if(empModel.Photo != null)
             {
-                Name = empModel.Name,
-                Email = empModel.Email,
-                Department = empModel.Department,
-                PhotoPath = 
-            };
-            return RedirectToAction("Details", new { id = empToUpdate.Id });
+                //check if the employee has photo already, and delete it first if has.
+                if(empModel.ExistingPhotoPath != null)
+                {
+                    var filePath = Path.Combine(webHostEnvironment.WebRootPath,
+                        "images", empModel.ExistingPhotoPath);
+                    System.IO.File.Delete(filePath);
+                }
+                //upload a new selected photo
+                employee.PhotoPath = ProcessUploadPhoto(empModel);
+            }
+            _employeeRepo.UpdateEmployee(employee);
+            return RedirectToAction("Details", new { id = employee.Id });
         }
     }
 } 
