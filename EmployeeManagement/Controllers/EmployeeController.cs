@@ -62,11 +62,12 @@ namespace EmployeeManagement.Controllers
                 string uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
                 uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
                 string filePath = Path.Combine(uploadFolderPath, uniqueFileName);
-                //we copy the photo images from view to our images folder using filePath and to server using FileMode.Create
+                //we copy the photo images from view to our images folder using filePath to locate the location and upload to server using FileMode.Create
                 model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
             }
             if (ModelState.IsValid)
             {
+                //assign data from viewModel to Employee model
                 Employee newEmp = new Employee
                 {
                     Name = model.Name,
@@ -75,6 +76,7 @@ namespace EmployeeManagement.Controllers
                     PhotoPath = uniqueFileName,
                 };
 
+                //get the function to add into Database
                 _employeeRepo.AddNewEmployee(newEmp);
                 return RedirectToAction("Details", new { id = newEmp.Id });
             }
@@ -85,6 +87,35 @@ namespace EmployeeManagement.Controllers
         {
              _employeeRepo.DeleteEmployee(id);
             return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public ViewResult Edit(int id)
+        {
+            Employee emp = _employeeRepo.GetEmployee(id);
+            EmployeeEditViewModel empToEdit = new EmployeeEditViewModel
+            {
+                Id = emp.Id,
+                Name = emp.Name,
+                Email = emp.Email,
+                Department = emp.Department,
+                ExistingPhotoPath = emp.PhotoPath
+            };
+            return View(empToEdit);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(EmployeeEditViewModel empModel)
+        {
+            string replacePhotoPath = null;
+            Employee empToUpdate = new Employee
+            {
+                Name = empModel.Name,
+                Email = empModel.Email,
+                Department = empModel.Department,
+                PhotoPath = 
+            };
+            return RedirectToAction("Details", new { id = empToUpdate.Id });
         }
     }
 } 

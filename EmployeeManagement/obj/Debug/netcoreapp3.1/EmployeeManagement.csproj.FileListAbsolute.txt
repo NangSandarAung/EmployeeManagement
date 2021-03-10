@@ -386,3 +386,4 @@ C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\bin\Debug\netcore
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.csproj.CoreCompileInputs.cache
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cs
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\EmployeeManagement.MvcApplicationPartsAssemblyInfo.cache
+C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Employee\Edit.cshtml.g.cs
