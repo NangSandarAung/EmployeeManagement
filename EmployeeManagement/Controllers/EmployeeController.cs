@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EmployeeManagement.Controllers
@@ -11,11 +13,15 @@ namespace EmployeeManagement.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepository _employeeRepo;
+        private readonly IWebHostEnvironment webHostEnvironment;
 
         //constructor injection
-        public EmployeeController(IEmployeeRepository employeeRepository)
+        //to get the physical path of the wwwroot folder, we use IWebHostEnvironment 
+        public EmployeeController(IEmployeeRepository employeeRepository,
+            IWebHostEnvironment webHostEnvironment)
         {
             this._employeeRepo = employeeRepository;
+            this.webHostEnvironment = webHostEnvironment;
         }
         public ViewResult Index()
         {
@@ -27,8 +33,7 @@ namespace EmployeeManagement.Controllers
         public IActionResult Details(int id)
         {
             Employee emp = _employeeRepo.GetEmployee(id);
-            ViewData["emp"] = emp;
-            return View();
+            return View(emp);
         }
 
         public ViewResult About()
@@ -47,14 +52,39 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
-        public IActionResult Create(Employee emp)
+        public IActionResult Create(EmployeeCreateViewModel model)
         {
+            string uniqueFileName = null;
+            if(model.Photo != null)
+            {
+                //WebRootPath --> provide the physical path of wwwroot
+                //as we need to get to the images of wwwroot, we use combine() to combine the full path
+                string uploadFolderPath = Path.Combine(webHostEnvironment.WebRootPath, "images");
+                uniqueFileName = Guid.NewGuid().ToString() + "_" + model.Photo.FileName;
+                string filePath = Path.Combine(uploadFolderPath, uniqueFileName);
+                //we copy the photo images from view to our images folder using filePath and to server using FileMode.Create
+                model.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+            }
             if (ModelState.IsValid)
             {
-                Employee newEmp = _employeeRepo.AddNewEmployee(emp);
+                Employee newEmp = new Employee
+                {
+                    Name = model.Name,
+                    Email = model.Email,
+                    Department = model.Department,
+                    PhotoPath = uniqueFileName,
+                };
+
+                _employeeRepo.AddNewEmployee(newEmp);
                 return RedirectToAction("Details", new { id = newEmp.Id });
             }
-            return View(emp);
+            return View(model);
+        }
+
+        public IActionResult Delete(int id)
+        {
+             _employeeRepo.DeleteEmployee(id);
+            return RedirectToAction("Index");
         }
     }
 } 

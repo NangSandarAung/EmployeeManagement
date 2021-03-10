@@ -1,20 +1,22 @@
-﻿@{
-    Employee emp = (Employee)ViewData["emp"];
+﻿@model EmployeeManagement.Models.Employee
+
+@{
+    string photoPath = "~/images/" + (Model.PhotoPath ?? "download.png");
 }
 
 <div class="row justify-content-center m-3">
     <div class="col-sm-8">
         <div class="card">
             <div class="card-header">
-                <h3>@emp.Name</h3>
+                <h3>@Model.Name</h3>
             </div>
 
             <div class="card-body text-center">
-                <img class="card-img-top" src="~/images/download.png" />
+                <img class="card-img-top" src="@photoPath" asp-append-version="true" />
 
-                <h4>Employee ID : @emp.Id</h4>
-                <h4>Email : @emp.Email</h4>
-                <h4>Department : @emp.Department</h4>
+                <h4>Employee ID : @Model.Id</h4>
+                <h4>Email : @Model.Email</h4>
+                <h4>Department : @Model.Department</h4>
             </div>
 
             <div class="card-footer text-center">

@@ -75,3 +75,8 @@ body {
 .btn{
     width: 75px;
 }
+
+.imageThumbnail{
+    height: 316px;
+    width: auto;
+}
