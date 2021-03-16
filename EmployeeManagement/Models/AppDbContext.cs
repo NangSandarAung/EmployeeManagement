@@ -1,14 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Models
 {
     //create DBContext to interact with Database
     //our class need to derived from DbContext class
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext
     {
         //we create an instance of DbContextOptions in order to have access to base DbContext
         public AppDbContext(DbContextOptions<AppDbContext> options)
@@ -20,6 +17,7 @@ namespace EmployeeManagement.Models
         //to seed data into database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
             //call the ModelBuilder extension class's method to seed data
             modelBuilder.Seed();
            

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,11 @@ namespace EmployeeManagement.Controllers
         public IActionResult Details(int id)
         {
             Employee emp = _employeeRepo.GetEmployee(id);
+            if(emp == null)
+            {
+                Response.StatusCode = 404;
+                return View("EmployeeNotFound", id);
+            }
             return View(emp);
         }
 
@@ -137,6 +143,22 @@ namespace EmployeeManagement.Controllers
             }
             _employeeRepo.UpdateEmployee(employee);
             return RedirectToAction("Details", new { id = employee.Id });
+        }
+
+        [Route("/Error/{statusCode}")]
+        public IActionResult Error(int statusCode)
+        {
+            var StatusCodeResult = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
+            switch (statusCode)
+            {
+                case 404:
+                    ViewBag.ErrorMessage = "Error Request has been found";
+                    ViewBag.Path = StatusCodeResult.OriginalPath;
+                    ViewBag.QueryString = StatusCodeResult.OriginalQueryString;
+                    break;
+            }
+
+            return View("Error");
         }
     }
 } 

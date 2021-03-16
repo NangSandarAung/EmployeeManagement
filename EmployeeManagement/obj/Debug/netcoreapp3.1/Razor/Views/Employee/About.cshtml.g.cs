@@ -26,8 +26,15 @@ using EmployeeManagement.Models;
 #line default
 #line hidden
 #nullable disable
+#nullable restore
+#line 3 "C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\Views\_ViewImports.cshtml"
+using Microsoft.AspNetCore.Identity;
+
+#line default
+#line hidden
+#nullable disable
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"9e7f0c8203bbf4b4fe95fc21c2b1c2e14fffecf1", @"/Views/Employee/About.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"3af35a328bfe0c906f75d04efeba14f80e1f583b", @"/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"e32e85d92cfd4447a573831ae872608766409903", @"/Views/_ViewImports.cshtml")]
     public class Views_Employee_About : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<EmployeeManagement.ViewModels.EmployeeAboutViewModel>
     {
         #pragma warning disable 1998

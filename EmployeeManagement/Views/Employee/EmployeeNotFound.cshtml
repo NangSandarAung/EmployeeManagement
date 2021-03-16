@@ -1,0 +1,11 @@
+﻿@model int
+
+<div class="alert alert-danger mt-2 mb-2">
+    <h3>404 Not Found Error : </h3>
+    <hr />
+    <h5>Employee with ID @Model cannot be found</h5>
+</div>
+
+<a class="btn btn-primary" asp-controller="Employee" asp-action="Index" style="width:auto">
+    Back to Emp List
+</a>

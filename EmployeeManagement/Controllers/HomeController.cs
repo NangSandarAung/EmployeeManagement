@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Diagnostics;
 
 namespace EmployeeManagement.Controllers
 {
@@ -13,6 +14,7 @@ namespace EmployeeManagement.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
+        //ILogger<HomeController> --> to group all the messages that is coming from the HomeController
         public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;

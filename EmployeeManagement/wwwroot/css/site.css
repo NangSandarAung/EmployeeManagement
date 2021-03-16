@@ -80,3 +80,7 @@ body {
     height: 316px;
     width: auto;
 }
+
+.btn-custom-color {
+    background-color: #b3c45a;
+}

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,6 +32,16 @@ namespace EmployeeManagement
             services.AddDbContext<AppDbContext>(options =>
                  options.UseSqlServer(Configuration.GetConnectionString("Dbconn")));
 
+            //Configure IdentityUser & IdentityRole to use with database
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<AppDbContext>();
+
+            //override setting of default PasswordOptions()
+            services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireUppercase = false;
+            });
+
             services.AddControllersWithViews(); 
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
         }
@@ -47,15 +58,22 @@ namespace EmployeeManagement
             {
                 app.UseExceptionHandler("/Home/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                
+                //app.UseStatusCodePagesWithReExecute("/Employee/Error/{statusCode}");
+                
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
 
-            //sserves static files that's inside wwwroot
+            //serves static files that's inside wwwroot
             app.UseStaticFiles();
              
             app.UseRouting();
 
+            //identifying who the user is
+            app.UseAuthentication();
+
+            //identifying what the user can and cannot do
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
