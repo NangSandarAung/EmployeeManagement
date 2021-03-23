@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Identity;
-@inject SignInManager<IdentityUser> signInManager;
+@inject SignInManager<ApplicationUser> signInManager;
 
 <!DOCTYPE html>
 <html lang="en">
@@ -69,11 +69,11 @@
                 </ul>
                 <ul class="navbar-nav ml-auto">
 
-                    @if(signInManager.IsSignedIn(User))
+                    @if (signInManager.IsSignedIn(User))
                     {
                         <li class="nav-item">
                             <form method="post" asp-controller="UserAccount" asp-action="Logout">
-                                <button type="submit" class="nav-link btn btn-link py-0" 
+                                <button type="submit" class="nav-link btn btn-link py-0"
                                         style="width:auto">
                                     Logout @User.Identity.Name
                                 </button>
@@ -105,7 +105,11 @@
             &copy; 2021 - EmployeeManagement - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
+    @*these three files need to use for client-side validation*@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    @*end*@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
 
@@ -113,3 +117,4 @@
     @RenderSection("Scripts", required: false)
 </body>
 </html>
+ 

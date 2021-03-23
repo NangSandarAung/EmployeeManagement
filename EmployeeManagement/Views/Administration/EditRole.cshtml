@@ -1,0 +1,64 @@
+﻿@model EmployeeManagement.ViewModels.EditRoleViewModel
+
+@{
+    ViewBag.Title = "Edit User Role";
+}
+
+<h3 class="mt-3"> Edit User Role </h3>
+
+<div class="row">
+    <div class="col-md-10">
+        <form method="post" class="mt-3">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-4 mt-2">
+                    <label asp-for="Id" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="Id" class="form-control" disabled />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4 mt-2">
+                    <label asp-for="RoleName"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="RoleName" class="form-control" />
+                    <span asp-validation-for="RoleName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-controller="Administration" asp-action="UserRolesList"
+                   class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+
+        <div class="card mt-5">
+            <div class="card-header">
+                Users in this Role
+            </div>
+
+            <div class="card-body">
+                    @if (Model.Users.Any())
+                    {
+                        foreach(var user in Model.Users)
+                        {
+                            <h5 class="card-title">@user</h5>
+                        }
+                    }
+                    else
+                    {
+                        <h5 class="card-title">No User in this list.</h5>
+                    }
+            </div>
+
+            <div class="card-footer">
+                <a class="btn btn-primary" style="width: auto">Add User</a>
+                <a class="btn btn-danger" style="width: auto">Remove User</a>
+            </div>
+        </div>
+    </div>
+</div>

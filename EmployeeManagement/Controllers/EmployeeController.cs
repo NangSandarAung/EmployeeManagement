@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +23,7 @@ namespace EmployeeManagement.Controllers
             this._employeeRepo = employeeRepository;
             this.webHostEnvironment = webHostEnvironment;
         }
+        
         public ViewResult Index()
         {
             IEnumerable<Employee> empList = _employeeRepo.GetAllEmployee();
@@ -52,12 +52,15 @@ namespace EmployeeManagement.Controllers
             return View(employeeAboutViewModel);
         }
 
+        [HttpGet]
+        
         public ViewResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        
         public IActionResult Create(EmployeeCreateViewModel model)
         {
             string uniqueFileName = ProcessUploadPhoto(model);
@@ -107,6 +110,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpGet]
+        
         public ViewResult Edit(int id)
         {
             Employee emp = _employeeRepo.GetEmployee(id);
@@ -122,6 +126,7 @@ namespace EmployeeManagement.Controllers
         }
 
         [HttpPost]
+        
         public IActionResult Edit(EmployeeEditViewModel empModel)
         {
             //find the employee by id first

@@ -5,7 +5,8 @@ namespace EmployeeManagement.Models
 {
     //create DBContext to interact with Database
     //our class need to derived from DbContext class
-    public class AppDbContext : IdentityDbContext
+    //specify ApplicationUser as the generic argument for IdentityDbContext
+    public class AppDbContext : IdentityDbContext<ApplicationUser>
     {
         //we create an instance of DbContextOptions in order to have access to base DbContext
         public AppDbContext(DbContextOptions<AppDbContext> options)

@@ -3,11 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
+using IdentityServer4.AccessTokenValidation;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,15 +36,31 @@ namespace EmployeeManagement
                  options.UseSqlServer(Configuration.GetConnectionString("Dbconn")));
 
             //Configure IdentityUser & IdentityRole to use with database
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<AppDbContext>();
 
             //override setting of default PasswordOptions()
             services.Configure<IdentityOptions>(options =>
             {
                 options.Password.RequireUppercase = false;
+               
             });
-
+            services.ConfigureApplicationCookie(options => {
+                
+            });
+            services.AddMvc(config =>
+            {
+                var policy = new AuthorizationPolicyBuilder()
+                                .RequireAuthenticatedUser()
+                                .Build();
+                //config.Filters.Add(new AuthorizeFilter(policy));
+            });
+            //services.AddAuthentication();
+            //services.AddAuthorization(options=> {
+            //    options.FallbackPolicy = new AuthorizationPolicyBuilder()
+            //            .RequireAuthenticatedUser()
+            //            .Build();
+            //});         
             services.AddControllersWithViews(); 
             services.AddScoped<IEmployeeRepository, SQLEmployeeRepository>();
         }
@@ -75,6 +94,7 @@ namespace EmployeeManagement
 
             //identifying what the user can and cannot do
             app.UseAuthorization();
+
 
             app.UseEndpoints(endpoints =>
             {
