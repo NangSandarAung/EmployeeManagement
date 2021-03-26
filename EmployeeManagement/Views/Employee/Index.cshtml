@@ -12,12 +12,17 @@
                 @*using image tag helper ---> asp-append-version*@
                 <img class="card-img-top imageThumbnail" src="@photoPath" asp-append-version="true" />
                 <div class="card-footer text-center">
-                    <a asp-controller="Employee" asp-action="Details" asp-route-id="@emp.Id"
-                       class="btn btn-primary m-1">View</a>
-                    <a asp-controller="Employee" asp-action="Edit" asp-route-id="@emp.Id"
-                       class="btn btn-primary m-1">Edit</a>
-                    <a asp-controller="Employee" asp-action="Delete" asp-route-id="@emp.Id"
-                       class="btn btn-danger m-1">Delete</a>
+                    <form asp-controller="Employee" asp-action="Delete" 
+                          asp-route-id="@emp.Id" method="post">
+                        <a asp-controller="Employee" asp-action="Details" asp-route-id="@emp.Id"
+                           class="btn btn-primary m-1">View</a>
+                        <a asp-controller="Employee" asp-action="Edit" asp-route-id="@emp.Id"
+                           class="btn btn-primary m-1">Edit</a>
+                        <button type="submit" class="btn btn-danger"
+                                onclick="return confirm('Are you sure you want to delete Employee: @emp.Name')">
+                            Delete
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>

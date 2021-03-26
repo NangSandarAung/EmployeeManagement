@@ -36,10 +36,16 @@ namespace EmployeeManagement.Controllers
                     Email = user.Email,
                     City = user.City
                 };
+                //create a new user
                 var result = await userManager.CreateAsync(newUser, user.Password);
 
                 if (result.Succeeded)
                 {
+                    if(signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        return RedirectToAction("ListUser", "Administration");
+                    }
+                    //if user is successfully registered, then we use that username to sign in
                     await signInManager.SignInAsync(newUser, isPersistent: false);
                     return RedirectToAction("Index", "Employee");
                 }
@@ -70,8 +76,9 @@ namespace EmployeeManagement.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await signInManager.PasswordSignInAsync(user.Email,
-                                        user.Password, user.RememberMe, false);
+                ApplicationUser u = await userManager.FindByEmailAsync(user.Email);
+                var result = await signInManager.PasswordSignInAsync(u,
+                                        user.Password, user.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
                     if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))

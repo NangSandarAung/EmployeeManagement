@@ -66,6 +66,22 @@
                     <li class="nav-item">
                         <a asp-controller="Employee" asp-action="Create" class="nav-link">Create</a>
                     </li>
+                    @if (signInManager.IsSignedIn(User) && User.IsInRole("Admin"))
+                    {
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Manage
+                            </a>
+
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a asp-controller="Administration" asp-action="ListUser"
+                                   class="dropdown-item">Users</a>
+                                <a asp-controller="Administration" asp-action="UserRolesList"
+                                   class="dropdown-item">Roles</a>
+                            </div>
+                        </li>
+                    }
                 </ul>
                 <ul class="navbar-nav ml-auto">
 

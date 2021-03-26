@@ -103,6 +103,7 @@ namespace EmployeeManagement.Controllers
             return uniqueFileName;
         }
 
+        [HttpPost]
         public IActionResult Delete(int id)
         {
              _employeeRepo.DeleteEmployee(id);

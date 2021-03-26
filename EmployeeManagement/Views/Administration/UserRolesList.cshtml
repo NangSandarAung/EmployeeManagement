@@ -9,7 +9,7 @@
 @if (Model.Any())
 {
     <div>
-        <a asp-controller="Administration" asp-action="CreateRole" 
+        <a asp-controller="Administration" asp-action="CreateRole"
            class="btn btn-primary mb-3" style="width: auto">Add New Role</a>
     </div>
     foreach (var role in Model)
@@ -24,10 +24,23 @@
                 </div>
             </div>
             <div class="card-footer">
-                <a asp-controller="Administration" asp-action="EditRole"
-                   class="btn btn-primary" asp-route-id="@role.Id">Edit</a>
-                <a asp-controller="" asp-action=""
-                   class="btn btn-danger">Delete</a>
+                <form asp-controller="Administration" asp-action="DeletRole"
+                      asp-route-id="@role.Id" method="post">
+                    <a asp-controller="Administration" asp-action="EditRole"
+                       class="btn btn-primary" asp-route-id="@role.Id">Edit</a>
+
+                    <span id="confirmDelete_@role.Id" style="display: none">
+                        <span>Are you sure you want to delete?</span>
+                        <button type="submit" class="btn btn-danger">Yes</button>
+                        <a href="#" class="btn btn-primary"
+                           onclick="confirmDelete('@role.Id', false)">No</a>
+                    </span>
+
+                    <span id="deleteSpan_@role.Id">
+                        <a href="#" class="btn btn-danger"
+                           onclick="confirmDelete('@role.Id', true)">Delete</a>
+                    </span>
+                </form>
             </div>
         </div>
     }
@@ -50,4 +63,9 @@ else
                class="btn btn-primary" style="width: auto">Create Role</a>
         </div>
     </div>
+}
+
+@section Scripts{
+
+    <script src="~/js/CustomScript.js"></script>
 }

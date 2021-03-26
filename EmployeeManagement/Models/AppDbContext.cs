@@ -20,7 +20,7 @@ namespace EmployeeManagement.Models
         {
             base.OnModelCreating(modelBuilder);
             //call the ModelBuilder extension class's method to seed data
-            modelBuilder.Seed();
+            //modelBuilder.Seed();
            
         }
 

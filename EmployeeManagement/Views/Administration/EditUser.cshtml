@@ -1,0 +1,115 @@
+﻿@model EmployeeManagement.ViewModels.EditUserViewModel
+
+@{ 
+    ViewBag.Title = "Edit User";
+}
+
+<h2 class="mt-2">Edit User</h2>
+
+<div class="row">
+    <div class="col-md-10">
+        <form method="post">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Id" class="col-form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="Id" class="form-control" disabled />
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="UserName" class="col-form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="UserName" class="form-control" />
+                    <span asp-validation-for="UserName" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="Email" class="col-form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="Email" class="form-control" />
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+            </div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="City" class="col-form-label"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="City" class="form-control" />
+                </div>
+
+            </div>
+            <div class="form-group">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a asp-controller="Administration" asp-action="ListUser"
+                   class="btn btn-secondary">Cancel</a>
+            </div>
+        </form>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h3>User Roles</h3>
+            </div>
+            <div class="card-body">
+                @if (Model.Roles.Any())
+                {
+                    @foreach (var role in Model.Roles)
+                    {
+                        <div class="card-title">
+                            @role
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <div class="card-title">
+                        None at this moment
+                    </div>
+
+                }
+            </div>
+            <div class="card-footer">
+                <a asp-controller="Administration" asp-action="UserRolesList"
+                   class="btn btn-primary" style="width: auto">Manage Roles</a>
+            </div>
+        </div>
+
+        <div class="card mt-3">
+            <div class="card-header">
+                <h3>User Claims</h3>
+            </div>
+            <div class="card-body">
+                @if (Model.Claims.Count != 0)
+                {
+                    @foreach (var claim in Model.Claims)
+                    {
+                        <div class="card-title">
+                            @claim
+                        </div>
+                    }
+
+                }
+                else
+                {
+                    <div class="card-title">
+                        None at this moment
+                    </div>
+
+                }
+            </div>
+            <div class="card-footer">
+                <a asp-controller="Administration" asp-action="UserRolesList"
+                   class="btn btn-primary" style="width: auto">Manage Claims</a>
+            </div>
+        </div>
+    </div>
+</div>
