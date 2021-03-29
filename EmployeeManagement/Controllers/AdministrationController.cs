@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using EmployeeManagement.Models;
 using EmployeeManagement.ViewModels;
@@ -330,6 +331,35 @@ namespace EmployeeManagement.Controllers
             }
 
             return RedirectToAction("EditUser", new { id = id });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ManageUserClaim(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+            var existingUserClaims = await userManager.GetClaimsAsync(user);
+
+            var model = new UserClaimsViewModel
+            {
+                UserId = user.Id,
+            };
+            
+            foreach(Claim claim in ClaimsStore.AllClaims) 
+            {
+                UserClaim userClaim = new UserClaim
+                {
+                    ClaimType = claim.Type
+                };
+
+                if(existingUserClaims.Any(c => c.Type == claim.Type))
+                {
+                    userClaim.IsSelected = true;
+                }
+
+                model.Claims.Add(userClaim);
+            }
+             
+            return View(model);
         }
     }
 }

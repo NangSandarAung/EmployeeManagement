@@ -403,3 +403,4 @@ C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcore
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ListUser.cshtml.g.cs
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Administration\EditUser.cshtml.g.cs
 C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ManageUserRole.cshtml.g.cs
+C:\ASP.NET_CORE\Projects\EmployeeManagement\EmployeeManagement\obj\Debug\netcoreapp3.1\Razor\Views\Administration\ManageUserClaim.cshtml.g.cs

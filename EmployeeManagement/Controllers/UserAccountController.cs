@@ -45,9 +45,12 @@ namespace EmployeeManagement.Controllers
                     {
                         return RedirectToAction("ListUser", "Administration");
                     }
-                    //if user is successfully registered, then we use that username to sign in
-                    await signInManager.SignInAsync(newUser, isPersistent: false);
-                    return RedirectToAction("Index", "Employee");
+                    else
+                    {
+                        //if user is successfully registered, then we use that username to sign in
+                        await signInManager.SignInAsync(newUser, isPersistent: false);
+                        return RedirectToAction("Index", "Employee");
+                    }   
                 }
 
                 foreach (var err in result.Errors)

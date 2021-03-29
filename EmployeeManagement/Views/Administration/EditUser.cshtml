@@ -108,8 +108,10 @@
                 }
             </div>
             <div class="card-footer">
-                <a asp-controller="Administration" asp-action="UserRolesList"
-                   class="btn btn-primary" style="width: auto">Manage Claims</a>
+                <a asp-controller="Administration" asp-action="ManageUserClaim"
+                   asp-route-id="@Model.Id" class="btn btn-primary" style="width: auto">
+                    Manage Claims
+                </a>
             </div>
         </div>
     </div>
