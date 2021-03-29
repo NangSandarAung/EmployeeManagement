@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace EmployeeManagement.Models
 {
@@ -14,7 +15,7 @@ namespace EmployeeManagement.Models
         {
 
         }
-
+         
         //to seed data into database
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -22,6 +23,11 @@ namespace EmployeeManagement.Models
             //call the ModelBuilder extension class's method to seed data
             //modelBuilder.Seed();
            
+            foreach(var foreignKey in modelBuilder.Model.GetEntityTypes()
+                                       .SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
         }
 
 

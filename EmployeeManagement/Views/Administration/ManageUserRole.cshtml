@@ -1,0 +1,38 @@
+﻿@model IEnumerable<EmployeeManagement.ViewModels.User_RoleViewModel>
+
+@{ 
+    var userId = ViewBag.UserId;
+}
+
+<div class="row mt-3">
+    <div class="col-10">
+        <form method="post">
+            <div class="card">
+                <div class="card-header">
+                    Manage User Roles
+                </div>
+                <div class="card-body ml-3">
+                    @if (Model.Any())
+                    {
+                        foreach (var role in Model)
+                        {
+                            <div class="card-title">
+                                <input asp-for="@role.IsSelected" class="form-check-input" />
+                                <label class="form-check-label" asp-for="@role.IsSelected">
+                                    @role.RoleName
+                                </label>
+                            </div>
+                        }
+
+                    }
+                </div>
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary" style="width: auto">Update</button>
+                    <a asp-controller="Administration" asp-action="EditUser"
+                       asp-route-id="@userId" class="btn btn-secondary" style="width: auto">Cancel</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
